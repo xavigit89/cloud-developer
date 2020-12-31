@@ -98,8 +98,35 @@ import { Car, cars as cars_list } from './cars';
     return res.status(200).send(query_result);
   });
 
-  /// @TODO Add an endpoint to post a new car to our list
-  // it should require id, type, model, and cost
+  /// Post a new car to our list
+  // Status code 200: on success
+  // Status code 400: required field missing (id, type, model, and cost)
+  // Status code 400: car with provided id already exists
+  app.post("/cars/", (req: Request, res: Response) => {
+    const { id, type, model, make, cost } = req.body;
+
+    if (!id || !type || !model || !cost) {
+      return res.status(400).send('The following fields are required: id, type, model, make, cost');
+    }
+
+    const found = cars.find(car => car.id == id);
+
+    if (found) {
+      return res.status(400).send(`Car with id ${id} already exists`);
+    }
+
+    const new_car: Car = {
+      id,
+      type,
+      model,
+      make,
+      cost
+    };
+
+    cars.push(new_car);
+
+    return res.status(201).send([new_car]);
+  });
 
   // Start the Server
   app.listen( port, () => {
