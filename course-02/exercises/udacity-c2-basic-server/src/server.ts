@@ -80,9 +80,23 @@ import { Car, cars as cars_list } from './cars';
     return res.status(200).send(filtered_cars);
   });
 
-  // @TODO Add an endpoint to get a specific car
-  // it should require id
-  // it should fail gracefully if no matching car is found
+  // Get a specific car
+  // - Status code 200: on success
+  // - Status code 400: when id is not provided
+  // - Status code 404: when car not found
+  app.get("/cars/:id", (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    if (!id) {
+      return res.status(400).send('id is requires');
+    }
+
+    const query_result = cars.filter(car => car.id == id);
+    if (query_result.length === 0) {
+      return res.status(404).send(`No car found with id ${id}`);
+    }
+    return res.status(200).send(query_result);
+  });
 
   /// @TODO Add an endpoint to post a new car to our list
   // it should require id, type, model, and cost
