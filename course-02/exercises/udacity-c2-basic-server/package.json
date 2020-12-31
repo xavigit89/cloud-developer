@@ -6,7 +6,8 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.tests.ts",
     "dev": "ts-node-dev --respawn --transpileOnly ./src/server.ts",
-    "tsc": "tsc"
+    "tsc": "tsc",
+    "ionic": "ionic"
   },
   "repository": {
     "type": "git",
@@ -30,7 +31,8 @@
     "ts-node": "^8.3.0",
     "ts-node-dev": "^1.0.0-pre.40",
     "tslint": "^5.18.0",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "@ionic/cli": "^6.12.3"
   },
   "dependencies": {
     "express": "^4.17.1"
